@@ -22,8 +22,8 @@
 class Debugger{
 
 public:
-    Debugger();
-    int init(const char *program_file);
+    Debugger(const char *program_file);
+    // int init(const char *program_file);
     int run();
 
 

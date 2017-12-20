@@ -19,7 +19,7 @@
 
 
 
-Debugger::Debugger() {
+Debugger::Debugger(const char *program_file) : _program_file(program_file) {
     // init dict
     dict["run"] = RUN;
     dict["r"] = RUN;
@@ -39,10 +39,10 @@ Debugger::Debugger() {
 
 }
 
-int Debugger::init(const char *program_file){
-    this->program_file = program_file;
-    return 0;
-}
+// int Debugger::init(const char *program_file){
+    // this->program_file = program_file;
+    // return 0;
+// }
 
 int Debugger::run() {
     child_pid = fork();
@@ -51,8 +51,8 @@ int Debugger::run() {
             ERROR("ptrace(PTRACE_TRACEME, 0, NULL, NULL)\n");
             return -1;
         }
-        if(execl(program_file, program_file, 0) < 0) {
-            ERROR("call execl failed, program:[%s]\n", program_file);
+        if(execl(_program_file, _program_file, 0) < 0) {
+            ERROR("call execl failed, program:[%s]\n", _program_file);
             return -1;
         }
     }
@@ -67,9 +67,6 @@ int Debugger::run() {
     }
 
     while (1) {
-
-        
-
         printf("(ydb)");
         if (fgets(line_buf, MAX_LINE, stdin) == NULL) {
             ERROR("call fgets failed, line:[%s]\n", line_buf);

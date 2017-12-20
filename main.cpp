@@ -6,8 +6,8 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    Debugger debugger;
-    debugger.init(argv[1]);
+    Debugger debugger(argv[1]);
+//    debugger.init(argv[1]);
     debugger.run();
 
     return 0;
